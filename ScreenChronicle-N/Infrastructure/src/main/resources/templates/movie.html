@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: layout">
+<head>
+    <title>Media Details</title>
+</head>
+<body>
+    <div class="container">
+        <div class="media-details" style="text-align: left;">
+            <h1 style="color: #ffd700; text-align: center;" th:text="${media.title}"></h1>
+            <img th:src="${media.poster}" alt="poster" style="max-width: 100%; height: auto; margin: 0 auto; display: block;" />
+            <h4 style="color: #ddd;">Release Date: <span th:text="${media.release_date}"></span></h4>
+            <h4 style="color: #ddd;">Summary: <span th:text="${media.description}"></span></h4>
+            <h4 style="color: #ddd;">Rating: <span th:text="${media.rating}"></span></h4>
+
+            <th:block th:if="${media.directors and #lists.size(media.directors) > 0}">
+                <h3 style="color: #ffd700;">Directors</h3>
+                <ul>
+                    <li th:each="director : ${media.directors}" style="color: #ddd;" th:text="${director}"></li>
+                </ul>
+            </th:block>
+
+            <th:block th:if="${media.genres and #lists.size(media.genres) > 0}">
+                <h3 style="color: #ffd700;">Genres</h3>
+                <ul>
+                    <li th:each="genre : ${media.genres}" style="color: #ddd;" th:text="${genre}"></li>
+                </ul>
+            </th:block>
+
+            <th:block th:if="${media.total_seasons != null and media.total_episodes != null}">
+                <h4 style="color: #ffd700;">Total Seasons and Episodes</h4>
+                <p style="color: #ddd;">Total Seasons: <span th:text="${media.total_seasons}"></span></p>
+                <p style="color: #ddd;">Total Episodes: <span th:text="${media.total_episodes}"></span></p>
+            </th:block>
+
+            <th:block th:if="${isAuthenticated}">
+                <h3 style="color: #ffd700; text-align: left;">Watching Status</h3>
+                <th:block th:if="${status != 'watched'}">
+                    <a th:href="@{'/media/' + ${media._id} + '/add/watched'}" style="color: #ffd700; text-decoration: none;">Watched</a>
+                </th:block>
+                <th:block th:else>
+                    <p style="color: #ddd; margin-bottom: 0;">Watched</p>
+                </th:block>
+                <br />
+                <!-- Similar blocks for other watching statuses -->
+            </th:block>
+
+            <h3 style="color: #ffd700; text-align: left;">Leave a Review:</h3>
+            <form action="@{'/media/' + ${media._id} + '/addReview'}" method="POST" class="review-form" style="text-align: left;">
+                <label for="rating" style="color: #ffd700;">Rating (1-10):</label>
+                <input type="number" name="rating" min="1" max="10" style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #4d4d4d; border-radius: 5px; background-color: #333; color: #fff; margin-bottom: 10px;" required />
+                <!-- Other form elements -->
+                <button type="submit" style="background-color: #ffd700; color: #333; padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; cursor: pointer;">Add Review</button>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <h1>ScreenChronicle</h1>
+    <div class="media-container">
+        <div th:each="movie, stat : ${movies}">
+            <h1 th:text="${movie.title}"></h1>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Watchlist</title>
+</head>
+<body>
+<h1>Watchlist</h1>
+<ul>
+    <li th:each="watchlistItem : ${watchlist}">
+        <span th:text="${watchlistItem.movieId}"></span> <!-- Assuming movieId is the ID of the movie -->
+    </li>
+</ul>
+</body>
+</html>
+

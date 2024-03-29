@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="add-movie-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add Movie</h2>
+        <form id="add-movie-form">
+            <div>
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div>
+                <label for="date">Date:</label>
+                <input type="text" id="date" name="date" required>
+            </div>
+            <div>
+                <label for="length">Length (minutes):</label>
+                <input type="number" id="length" name="length" required>
+            </div>
+            <div>
+                <label for="director">Director:</label>
+                <input type="text" id="director" name="director" required>
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
