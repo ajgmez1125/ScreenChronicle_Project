@@ -43,5 +43,5 @@ public class MovieServiceImpl implements MovieService
     public Movie addMovie(Movie movie) {
         return movieJPAService.addMovie(movie);
     }
-    
+
 }

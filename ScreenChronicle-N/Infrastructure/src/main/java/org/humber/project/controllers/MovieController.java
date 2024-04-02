@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @RequestMapping("/api/movie")
 public class MovieController {
-    private MovieService movieService;
+    private final MovieService movieService;
 
     @Autowired
     public MovieController(MovieService movieService)

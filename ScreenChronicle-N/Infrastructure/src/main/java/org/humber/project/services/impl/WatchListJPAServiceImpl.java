@@ -5,10 +5,10 @@ import org.humber.project.domain.WatchList;
 import org.humber.project.repositories.WatchListJPARepository;
 import org.humber.project.repositories.entities.WatchListEntity;
 import org.humber.project.services.WatchListJPAService;
+import org.humber.project.services.MovieJPAService;
 import org.humber.project.transformers.WatchListTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.humber.project.services.MovieJPAService;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,12 +17,13 @@ public class WatchListJPAServiceImpl implements WatchListJPAService {
 
     private final WatchListJPARepository watchListJPARepository;
     private final WatchListTransformer watchListTransformer;
-    private MovieJPAService movieJPAService;
+    private final MovieJPAService movieJPAService; // Add MovieJPAService field
 
     @Autowired
-    public WatchListJPAServiceImpl(WatchListJPARepository watchListJPARepository, WatchListTransformer watchListTransformer) {
+    public WatchListJPAServiceImpl(WatchListJPARepository watchListJPARepository, WatchListTransformer watchListTransformer, MovieJPAService movieJPAService) {
         this.watchListJPARepository = watchListJPARepository;
         this.watchListTransformer = watchListTransformer;
+        this.movieJPAService = movieJPAService; // Initialize MovieJPAService field
     }
 
     @Override
@@ -36,10 +37,13 @@ public class WatchListJPAServiceImpl implements WatchListJPAService {
 
     private WatchList populateMovieData(WatchList watchList) {
         // Fetch movie data based on watchlist.movie_id using injected MovieJPAService
+        System.out.println("Attempting to fetch movie data for watchlist: " + watchList.getMovie_id());
         Movie movie = movieJPAService.getMovie(watchList.getMovie_id());
 
         if (movie != null) {
             watchList.setMovie(movie);
+        } else {
+            System.err.println("Movie data not found for watchlist: " + watchList.getMovie_id());
         }
         return watchList;
     }
@@ -51,3 +55,4 @@ public class WatchListJPAServiceImpl implements WatchListJPAService {
         return watchListTransformer.toDto(savedWatchListEntity);
     }
 }
+

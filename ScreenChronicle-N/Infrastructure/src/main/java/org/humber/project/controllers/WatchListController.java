@@ -11,33 +11,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.humber.project.services.MovieJPAService;
 @RestController
 @RequestMapping("/api/watchlist")
 public class WatchListController {
 
     private final WatchListJPAService watchListJPAService;
-    private final MovieService MovieService;
+    private final MovieJPAService movieJPAService;
+
     @Autowired
-    public WatchListController(WatchListJPAService watchListJPAService, org.humber.project.services.MovieService movieService) {
+    public WatchListController(WatchListJPAService watchListJPAService, MovieJPAService movieJPAService) {
         this.watchListJPAService = watchListJPAService;
-        this.MovieService = movieService;
+        this.movieJPAService = movieJPAService;
     }
+
 
     @PostMapping("/add")
     public ResponseEntity<WatchList> addToWatchList(@RequestBody WatchList watchList) {
         // Fetch the corresponding movie based on movie_id
-        Movie movie = MovieService.getMovie(watchList.getMovie_id());
+        Movie movie = movieJPAService.getMovie(watchList.getMovie_id());
 
         if (movie != null) {
-            // Set the movie in the WatchList object
+            // Set the movie in the WatchList
             watchList.setMovie(movie);
 
             // Add the WatchList to the database
             WatchList addedToWatchList = watchListJPAService.addToWatchList(watchList);
             return ResponseEntity.status(HttpStatus.CREATED).body(addedToWatchList);
         } else {
-            // Handle the case where the movie with the given ID does not exist
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
