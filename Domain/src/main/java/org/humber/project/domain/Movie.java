@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Movie {
-    private long movie_id;
+    private Long movie_id;
     private String title;
     private String date;
     private Integer length; //In minutes

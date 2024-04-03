@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 
 import org.humber.project.domain.Movie;
 import org.humber.project.domain.Review;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class MVCController {
@@ -45,6 +47,7 @@ public class MVCController {
     {
         return "add-movie";
     }
+    
 
     // @GetMapping("/recommended/{user_id}")
     // public String recommendedMovies(Model model)

@@ -1,16 +1,17 @@
-package org.humber.project.domain;
+package org.humber.project.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
-@Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    private Long user_id;
+@Data
+public class UserDto {
+    @NonNull
     private String username;
+    @NonNull
     private String password;
+    private String roles = "User";
 }

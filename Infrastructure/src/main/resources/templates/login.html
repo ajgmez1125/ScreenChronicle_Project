@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <link rel="stylesheet" type="text/css" href="/style/main.css">
+</head>
+<body>
+<header>
+    <h1>Screenchronicle</h1>
+</header>
+
+<div class="container">
+    <h2 id="loginType"></h2>
+
+    <form action="/login" method="POST" enctype = 'application/json'>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="Login">
+    </form>
+    <!-- Link to the registration page -->
+    <br/>
+    <div class="register-link">
+        <a href="/register.html">Don't have an account? Register here.</a>
+    </div>
+    <div class="register-link" id="admin-link" style="display: none">
+        <a href="/login?type=admin">Click here to login as Admin</a>
+    </div>
+    <div class="register-link" id="customer-link" style="display: none">
+        <a href="/login">Click here to login as Customer</a>
+    </div>
+</div>
+</body>
+</html>
