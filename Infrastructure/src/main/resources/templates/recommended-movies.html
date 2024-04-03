@@ -12,7 +12,7 @@
             <div class="col">
                 <div class="media-container">
                     <div th:if="${movies == null or #lists.isEmpty(movies)}">
-                        <p>No movies available</p>
+                        <p>No recommended movies available</p>
                     </div>
                     <div th:each="movie, stat : ${movies}" class="movie-item mb-3">
                         <div class="card">

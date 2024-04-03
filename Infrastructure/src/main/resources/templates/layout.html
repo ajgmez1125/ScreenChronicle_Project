@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${title}"></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title th:fragment="title">ScreenChronicle</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <nav>
-        <a href="/">Home</a>
-        <div th:if="${user}">
+    <div th:fragment = "header">
+        <header>
+            <h1 style = "text-align: center">ScreenChronicle</h1>
+        </header>
+        <nav style="border:1px solid black; border-radius: 4px; margin: 20px; display: flex; justify-content: space-around">
+            <a href="/">Home</a>
+            <a href="/recommended">Recommended</a>
             <a href="/dashboard">Dashboard</a>
-            <a href="/logout">Logout</a>
-        </div>
-        <div th:unless="${user}">
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-        </div>
-    </nav>
-    <div th:include="${content}"></div>
+            <a href="/add-movie">Add Movie</a>
+            <a href="/swagger-ui/index.html">API</a>
+        </nav>
+    </div>
 </body>
 </html>
