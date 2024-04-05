@@ -27,12 +27,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         .requestMatchers("/movie/*").permitAll()
+                        //Uncomment this if it doesnt work fr u it might work ok cool :)
+                        //.requestMatchers("/api/watchlist/from-user/*").permitAll()
                         .requestMatchers("/user", "/user/**").permitAll()
                         .requestMatchers("/","/login", "/register*").permitAll()
                         .requestMatchers("/style/*", "/script/*").permitAll()
-                        .requestMatchers("/api/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
