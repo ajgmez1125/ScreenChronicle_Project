@@ -15,6 +15,7 @@ public class MovieEntityTransformer {
                 .length(movieEntity.getLength())
                 .director(movieEntity.getDirector())
                 .description(movieEntity.getDescription())
+                .genre(movieEntity.getGenre())
                 .build();
     }
 
@@ -26,6 +27,7 @@ public class MovieEntityTransformer {
         MovieEntity.setLength(movie.getLength());
         MovieEntity.setDirector(movie.getDirector());
         MovieEntity.setDescription(movie.getDescription());
+        MovieEntity.setGenre(movie.getGenre());
         return MovieEntity;
     }
 

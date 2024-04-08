@@ -9,4 +9,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 public interface WatchlistService {
     List<Movie> getWatchlistFromUser(Long user_id);
+    Watchlist addToWatchList(Long watchlist, Long user_id);
 }

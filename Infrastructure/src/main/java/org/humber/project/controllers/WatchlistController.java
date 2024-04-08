@@ -1,9 +1,11 @@
 package org.humber.project.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.humber.project.domain.Movie;
 import org.humber.project.domain.Watchlist;
+import org.humber.project.services.ApplicationUserDetailsService;
 import org.humber.project.services.WatchlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,21 +24,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class WatchlistController {
 
     private final WatchlistService watchlistService;
+    private final ApplicationUserDetailsService userService;
 
     @Autowired
-    public WatchlistController(WatchlistService watchlistService) {
+    public WatchlistController(WatchlistService watchlistService, ApplicationUserDetailsService userService)
+    {
         this.watchlistService = watchlistService;
+        this.userService = userService;
     }
 
-    // @PostMapping("/add")
-    // public ResponseEntity<Watchlist> addToWatchlist(@RequestBody Watchlist Watchlist) {
+    @GetMapping("/add/{movie_id}")
+    public ResponseEntity<Watchlist> addToWatchlist(@PathVariable Long movie_id, Principal principal)
+    {
+        String username = principal.getName();
+        if(username == null)
+        {
+            return null;
+        }
+        Long user_id = this.userService.getUserIdByUsername(username);
+        Watchlist addedToWatchlist = this.watchlistService.addToWatchList(movie_id, user_id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedToWatchlist);
+    }
 
-    //     Watchlist addedToWatchlist = WatchlistService.addToWatchlist(Watchlist);
-    //     return ResponseEntity.status(HttpStatus.CREATED).body(addedToWatchlist);
-    // }
     @GetMapping("/from-user/{user_id}")
     public List<Movie> getWatchlistFromUser(@PathVariable Long user_id) {
         return this.watchlistService.getWatchlistFromUser(user_id);
     }
-    
 }

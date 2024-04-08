@@ -10,9 +10,9 @@ import org.humber.project.repositories.entities.WatchlistEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WatchlistTransformer {
-
-    public WatchlistEntity transformtoWatchlistEntity(Watchlist watchlist, UserJPARepository userJPARepository, MovieJPARepository movieJPARepository)
+public class WatchlistTransformer
+{
+    public static WatchlistEntity transformtoWatchlistEntity(Watchlist watchlist, UserJPARepository userJPARepository, MovieJPARepository movieJPARepository)
     {
         WatchlistEntity watchlistEntity = new WatchlistEntity();
 

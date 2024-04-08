@@ -1,0 +1,2 @@
+ALTER TABLE user
+ADD roles VARCHAR(50) NOT NULL;

@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.humber.project.domain.Review;
 
-public interface ReviewService
-{
-        List<Review> getReviewByMovie(Long movie_id);
-        void updateReview(Review review);
-        void addReview(Review review);
-        void deleteReview(Review review);
+public interface ReviewService {
+    List<Review> getReviewByMovie(Long movieId);
+    List<Review> getReviewByUserId(Long user_id);
+    Review addReview(Review review);
+    void deleteReview(Long reviewId);
+    Review updateReview(Long reviewId, Review review);
 }

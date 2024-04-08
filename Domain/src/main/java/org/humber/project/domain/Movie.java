@@ -16,4 +16,5 @@ public class Movie {
     private Integer length; //In minutes
     private String director;
     private String description;
+    private String genre;
 }

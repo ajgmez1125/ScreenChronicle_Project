@@ -1,6 +1,9 @@
 package org.humber.project.services.impl;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Optional;
+
 import org.humber.project.dto.UserDto;
 import org.humber.project.repositories.UserJPARepository;
 import org.humber.project.repositories.entities.UserEntity;
@@ -54,5 +57,16 @@ public class ApplicationUserDetailsServiceImpl implements ApplicationUserDetails
             log.error("Error registering user ", e);
         }
         return false;
+    }
+
+    @Override
+    public long getUserIdByUsername(String username) {
+        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            return user.getUser_id();
+        } else {
+            throw new IllegalArgumentException("User with username '" + username + "' not found");
+        }
     }
 }

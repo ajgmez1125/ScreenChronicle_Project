@@ -1,5 +1,7 @@
 package org.humber.project.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import java.security.Principal;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -7,9 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
-
 import org.humber.project.domain.Movie;
 import org.humber.project.domain.Review;
+import org.humber.project.services.ApplicationUserDetailsService;
+import org.humber.project.services.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -17,8 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MVCController {
 
     private final RestTemplate restTemplate;
+    
+    private ApplicationUserDetailsService userService;
 
-    public MVCController(RestTemplateBuilder restTemplateBuilder) {
+    @Autowired
+    public MVCController(RestTemplateBuilder restTemplateBuilder, ApplicationUserDetailsService userService) {
+        this.userService = userService;
         this.restTemplate = restTemplateBuilder.build();
     }
 
@@ -49,9 +56,14 @@ public class MVCController {
     }
     
 
-    // @GetMapping("/recommended/{user_id}")
-    // public String recommendedMovies(Model model)
-    // {
-    //     return "recommended-movies";
-    // }
+    @GetMapping("/recommended")
+    public String recommendedMovies(Model model, Principal principal)
+    {
+        String username = principal.getName();
+        long user_id = this.userService.getUserIdByUsername(username);
+        System.out.println("RETRIEVED: " + user_id);
+        ResponseEntity<Movie[]> recommendedMovies = restTemplate.getForEntity("http://localhost:8080/api/movie/recommended/"+user_id, Movie[].class);
+        model.addAttribute("movie", recommendedMovies);
+        return "recommended-movies";
+    }
 }

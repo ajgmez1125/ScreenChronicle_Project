@@ -28,20 +28,31 @@ public class ReviewServiceImpl implements ReviewService
     }
 
     @Override
-    public void updateReview(Review review) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateReview'");
+    public List<Review> getReviewByUserId(Long user_id) {
+        return reviewJPAService.getReviewsByUserId(user_id);
     }
 
     @Override
-    public void addReview(Review review) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addReview'");
+    public Review updateReview(Long reviewId, Review review) {
+        if (reviewJPAService.exists(reviewId)) {
+            review.setReview_id(reviewId);
+            return reviewJPAService.save(review);
+        } else {
+            throw new IllegalArgumentException("Review not found with ID: " + reviewId);
+        }
     }
 
     @Override
-    public void deleteReview(Review review) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteReview'");
+    public Review addReview(Review review) {
+        return reviewJPAService.save(review);
+    }
+
+    @Override
+    public void deleteReview(Long reviewId) {
+        if (reviewJPAService.exists(reviewId)) {
+            reviewJPAService.deleteById(reviewId);
+        } else {
+            throw new IllegalArgumentException("Review not found with ID: " + reviewId);
+        }
     }
 }

@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface MovieJPARepository extends JpaRepository<MovieEntity, Long>{
+    @Query("SELECT m FROM MovieEntity m WHERE m.genre = :genre")
+    List<MovieEntity> getMoviesByGenre(String genre);
 }

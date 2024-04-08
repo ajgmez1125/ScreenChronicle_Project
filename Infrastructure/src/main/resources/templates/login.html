@@ -14,7 +14,7 @@
 <div class="container">
     <h2 id="loginType"></h2>
 
-    <form action="/login" method="POST" enctype = 'application/json'>
+    <form th:action="@{/login}" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <label for="password">Password:</label>
@@ -24,13 +24,7 @@
     <!-- Link to the registration page -->
     <br/>
     <div class="register-link">
-        <a href="/register.html">Don't have an account? Register here.</a>
-    </div>
-    <div class="register-link" id="admin-link" style="display: none">
-        <a href="/login?type=admin">Click here to login as Admin</a>
-    </div>
-    <div class="register-link" id="customer-link" style="display: none">
-        <a href="/login">Click here to login as Customer</a>
+        <a href="/register">Don't have an account? Register here.</a>
     </div>
 </div>
 </body>

@@ -37,9 +37,18 @@ public class MovieJPAServiceImpl implements MovieJPAService{
                 .map(MovieEntityTransformer::transformToMovie)
                 .orElse(null);
     }
+
+    @Override
     public Movie addMovie(Movie movie) {
         MovieEntity movieEntity = MovieEntityTransformer.transformToMovieEntity(movie);
         MovieEntity savedMovie = movieJPARepository.save(movieEntity);
         return MovieEntityTransformer.transformToMovie(savedMovie);
+    }
+
+    @Override
+    public List<Movie> getMoviesByGenre(String genre) {
+        return Optional.of(this.movieJPARepository.getMoviesByGenre(genre.toUpperCase()))
+                .map(MovieEntityTransformer::transformToMovies)
+                .orElse(null);
     }
 }

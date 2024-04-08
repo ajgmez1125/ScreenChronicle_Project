@@ -23,6 +23,7 @@
             <p><strong>Length:</strong> <span th:text="${movie.length}"></span> minutes</p>
             <p><strong>Director:</strong> <span th:text="${movie.director}"></span></p>
             <p><strong>Description:</strong> <span th:text="${movie.description}"></span></p>
+            <a th:href="@{/api/watchlist/add/{movieId}(movieId=${movie.movie_id})}">Add to Watchlist</a>
         </div>
     </div>
 

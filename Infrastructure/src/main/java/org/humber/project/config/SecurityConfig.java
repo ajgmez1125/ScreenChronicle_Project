@@ -27,19 +27,23 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("api/user", "api/user/**").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         .requestMatchers("/movie/*").permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         //Uncomment this if it doesnt work fr u it might work ok cool :)
                         //.requestMatchers("/api/watchlist/from-user/*").permitAll()
-                        .requestMatchers("/user", "/user/**").permitAll()
                         .requestMatchers("/","/login", "/register*").permitAll()
+                        .requestMatchers("/dashboard").hasRole("USER")
                         .requestMatchers("/style/*", "/script/*").permitAll()
+                        .requestMatchers("/error/**").permitAll()
+                        .requestMatchers("/recommended").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        .defaultSuccessUrl("/index.html")
+                        .defaultSuccessUrl("/")
                 )
                 .logout(logout -> logout
                         .permitAll()

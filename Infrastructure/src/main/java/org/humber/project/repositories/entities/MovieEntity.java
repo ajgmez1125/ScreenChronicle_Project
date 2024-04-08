@@ -30,4 +30,7 @@ public class MovieEntity {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "genre")
+    private String genre;
 }

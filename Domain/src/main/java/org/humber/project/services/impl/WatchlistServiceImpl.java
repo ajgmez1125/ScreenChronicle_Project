@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.humber.project.domain.Movie;
 import org.humber.project.domain.User;
+import org.humber.project.domain.Watchlist;
 import org.humber.project.services.UserService;
 import org.humber.project.services.WatchlistJPAService;
 import org.humber.project.services.WatchlistService;
@@ -27,5 +28,10 @@ public class WatchlistServiceImpl implements WatchlistService
     @Override
     public List<Movie> getWatchlistFromUser(Long user_id) {
         return this.watchlistJPAService.getWatchlistFromUser(user_id);
+    }
+
+    @Override
+    public Watchlist addToWatchList(Long movie_id, Long user_id) {
+        return this.watchlistJPAService.addToWatchList(movie_id, user_id);
     }
 }

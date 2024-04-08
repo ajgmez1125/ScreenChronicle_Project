@@ -6,5 +6,6 @@ public interface UserService
 {
     User getUser(String user_id);
     void addUser(User user);
-    void updateUser(User user);    
+    void updateUser(User user);
+    long getUserIdByUsername(String username);    
 }

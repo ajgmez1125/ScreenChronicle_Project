@@ -8,4 +8,5 @@ public interface MovieJPAService {
     List<Movie> getAllMovies();
     Movie getMovie(Long movieId);
     Movie addMovie(Movie movie);
+    List<Movie> getMoviesByGenre(String genre);
 }

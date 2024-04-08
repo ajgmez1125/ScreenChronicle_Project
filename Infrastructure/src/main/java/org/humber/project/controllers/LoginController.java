@@ -30,6 +30,7 @@ public class LoginController
     public String login(@RequestParam("username") String username, 
                         @RequestParam("password") String password)
     {
-        return "redirect:/index.html";
+        return "redirect:/";
     }
 }
+

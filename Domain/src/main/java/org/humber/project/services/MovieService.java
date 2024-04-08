@@ -8,6 +8,6 @@ public interface MovieService
 {
     Movie getMovie(Long movieId);
     List<Movie> getAllMovies();
-    List<Movie> getRecomendedMovies(String userId);
     Movie addMovie(Movie movie);
+    public List<Movie> getRecomendedMovies(Long user_id);
 }
