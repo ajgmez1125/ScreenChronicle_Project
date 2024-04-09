@@ -14,7 +14,9 @@ import org.humber.project.domain.Review;
 import org.humber.project.services.ApplicationUserDetailsService;
 import org.humber.project.services.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.humber.project.services.MovieService;
 
+import java.util.List;
 import java.util.Arrays;
 
 
@@ -25,10 +27,13 @@ public class MVCController {
     
     private ApplicationUserDetailsService userService;
 
+    private MovieService movieService;
+
     @Autowired
-    public MVCController(RestTemplateBuilder restTemplateBuilder, ApplicationUserDetailsService userService) {
+    public MVCController(RestTemplateBuilder restTemplateBuilder, ApplicationUserDetailsService userService, MovieService movieService) {
         this.userService = userService;
         this.restTemplate = restTemplateBuilder.build();
+        this.movieService = movieService;
     }
 
     @GetMapping("/")
@@ -67,5 +72,12 @@ public class MVCController {
         Movie[] movies = recommendedMovies.getBody();
         model.addAttribute("movies", movies);
         return "recommended-movies";
+    }
+
+    @GetMapping("/search")
+    public String searchMovies(@RequestParam("title") String title, Model model) {
+        List<Movie> searchResults = movieService.searchMoviesByTitle(title);
+        model.addAttribute("searchResults", searchResults);
+        return "search-results";
     }
 }

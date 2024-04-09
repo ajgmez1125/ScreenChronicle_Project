@@ -28,7 +28,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("api/user", "api/user/**").permitAll()
-                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         .requestMatchers("/movie/*").permitAll()
                         .requestMatchers("/api/**").permitAll()
@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/dashboard").hasRole("USER")
                         .requestMatchers("/style/*", "/script/*").permitAll()
                         .requestMatchers("/error/**").permitAll()
-                        .requestMatchers("/recommended").hasRole("USER")
+                        .requestMatchers("/recommended").hasRoles("USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin

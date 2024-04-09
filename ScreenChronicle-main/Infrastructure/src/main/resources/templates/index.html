@@ -7,7 +7,7 @@
 <body>
     <div th:insert="layout :: header"></div>
     <div>
-    <form th:action="@{/api/movie/search}" method="get">
+    <form action="/search" method="get">
         <div class="form-group">
             <label for="searchQuery">Search Movie:</label>
             <input type="text" class="form-control" id="searchQuery" name="title" placeholder="Enter movie title">
