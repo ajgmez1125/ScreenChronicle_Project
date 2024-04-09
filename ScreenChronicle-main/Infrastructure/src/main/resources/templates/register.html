@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Register User</title>
+    <link rel="stylesheet" type="text/css" href="style/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="customAlert" class="alert-box">
+    <div id="alertMessage"></div>
+    <br>
+    <button id="closeAlert">Close</button>
+</div>
+<header>
+    <h1>Screenchronicle</h1>
+</header>
+
+<div class="container">
+    <h2>Register User</h2>
+
+    <form id="registerForm" method="post">
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <label>Roles:</label><br>
+        <input type="checkbox" id="role1" name="roles" value="USER" checked="checked"> User
+        <input type="checkbox" id="role2" name="roles" value="ADMIN"> Admin
+        <p>
+        <input type="submit" value="Register">
+    </form>
+</div>
+</body>
+
+<script src="script/register.js"></script>
+</html>

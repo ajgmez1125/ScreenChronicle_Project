@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ScreenChronicle</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div th:insert="layout :: header"></div>
+    <div>
+    <form th:action="@{/api/movie/search}" method="get">
+        <div class="form-group">
+            <label for="searchQuery">Search Movie:</label>
+            <input type="text" class="form-control" id="searchQuery" name="title" placeholder="Enter movie title">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <div class="media-container">
+                    <div th:if="${movies == null or #lists.isEmpty(movies)}">
+                        <p>No movies available</p>
+                    </div>
+                    <div th:each="movie, stat : ${movies}" class="movie-item mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <a th:href="'/movie/' + ${movie.movie_id}">
+                                    <h5 class="card-title" th:text="${movie.title}">
+                                    </h5>
+                                </a>
+                                <p class="card-text" th:text="${movie.description}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

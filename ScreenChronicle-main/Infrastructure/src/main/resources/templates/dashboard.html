@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .movie {
+            margin-top: 20px;
+        }
+
+        .review-item {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div th:insert="layout :: header"></div>
+    
+    <div class="container">
+        <!-- Display watchlist here -->
+        <div th:if="${watchlist == null or #lists.isEmpty(watchlist)}">
+            <p>No items in the watchlist</p>
+        </div>
+        <div class="movie container">
+            <h2>Watchlist</h2>
+            <div th:each="movie : ${watchlist}" class="movie">
+                <h3 th:text="${movie.title}" class="mb-3"></h3>
+                <p><strong>Date:</strong> <span th:text="${movie.date}"></span></p>
+                <p><strong>Length:</strong> <span th:text="${movie.length}"></span> minutes</p>
+                <p><strong>Director:</strong> <span th:text="${movie.director}"></span></p>
+                <p><strong>Description:</strong> <span th:text="${movie.description}"></span></p>
+                <form th:action="@{/api/watchlist/delete/{movie_id}(movie_id=${movie.movie_id})}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container reviews">
+        <h2>Reviews</h2>
+        <div th:if="${reviews == null or #lists.isEmpty(reviews)}">
+            <p>No reviews available</p>
+        </div>
+        <div th:each="review : ${reviews}" class="review-item">
+            <p><href=><strong>Movie:</strong> <span th:text="${review.movie_id}">
+            <p><strong>Review:</strong> <span th:text="${review.review_text}"></span></p>
+            <p><strong>Rating:</strong> <span th:text="${review.rating}"></span></p>
+            <button id="deleteReviewButton" th:attr="data-review-id=${review.review_id}">Delete</button>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="/script/review.js"></script>
+    <script type="text/javascript" src="/script/watchlist.js"></script>
+</body>
+</html>

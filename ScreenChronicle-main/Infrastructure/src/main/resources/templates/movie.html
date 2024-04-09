@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ScreenChronicle</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .movie {
+            margin-top: 20px;
+        }
+
+        .review-item {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div th:insert="layout :: header"></div>
+    
+    <div class="container movie">
+        <div th:if="${movie != null}">
+            <h2 th:text="${movie.title}" class="mb-3"></h2>
+            <p><strong>Date:</strong> <span th:text="${movie.date}"></span></p>
+            <p><strong>Length:</strong> <span th:text="${movie.length}"></span> minutes</p>
+            <p><strong>Director:</strong> <span th:text="${movie.director}"></span></p>
+            <p><strong>Description:</strong> <span th:text="${movie.description}"></span></p>
+            <a th:href="@{/api/watchlist/add/{movieId}(movieId=${movie.movie_id})}">Add to Watchlist</a>
+        </div>
+    </div>
+
+    <div class="container reviews">
+        <h2>Reviews</h2>
+        <div th:if="${reviews == null or #lists.isEmpty(reviews)}">
+            <p>No reviews available</p>
+        </div>
+        <div th:each="review : ${reviews}" class="review-item">
+            <p><strong>Review:</strong> <span th:text="${review.reviewText}"></span></p>
+            <p><strong>Rating:</strong> <span th:text="${review.rating}"></span></p>
+        </div>
+    </div>
+</body>
+</html>
