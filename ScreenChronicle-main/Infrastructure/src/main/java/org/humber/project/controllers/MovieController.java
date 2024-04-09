@@ -64,4 +64,9 @@ public class MovieController {
     {
         return this.movieService.getRecomendedMovies(user_id);
     }
+
+    @GetMapping("/search")
+    public List<Movie> searchMoviesByTitle(@RequestParam("title") String title) {
+        return movieService.searchMoviesByTitle(title);
+    }
 }
