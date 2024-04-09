@@ -62,7 +62,6 @@ public class MovieController {
     @GetMapping("/recommended/{user_id}")
     public List<Movie> getRecomendedMovies(@PathVariable Long user_id)
     {
-        System.out.println("CONTROLLER");
         return this.movieService.getRecomendedMovies(user_id);
     }
 }

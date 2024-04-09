@@ -15,6 +15,8 @@ import org.humber.project.services.ApplicationUserDetailsService;
 import org.humber.project.services.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
+
 
 @Controller
 public class MVCController {
@@ -63,7 +65,9 @@ public class MVCController {
         long user_id = this.userService.getUserIdByUsername(username);
         System.out.println("RETRIEVED: " + user_id);
         ResponseEntity<Movie[]> recommendedMovies = restTemplate.getForEntity("http://localhost:8080/api/movie/recommended/"+user_id, Movie[].class);
-        model.addAttribute("movie", recommendedMovies);
+        Movie[] movies = recommendedMovies.getBody();
+        System.out.println(Arrays.toString(movies));
+        model.addAttribute("movies", movies);
         return "recommended-movies";
     }
 }
