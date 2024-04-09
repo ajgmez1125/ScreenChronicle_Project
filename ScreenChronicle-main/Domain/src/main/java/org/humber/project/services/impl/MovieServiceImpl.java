@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -50,18 +53,16 @@ public class MovieServiceImpl implements MovieService
         // Implement the method to search movies by title
         return movieJPAService.searchMoviesByTitle(title);
     }
+    
     @Override
     public List<Movie> getRecomendedMovies(Long user_id) {
-        final int RETURN_AMOUNT = 20;
-        System.out.println("SERVICE: " + user_id);
+        final int RETURN_AMOUNT = 30;
         List<Movie> userWatchlist = this.watchlistJPAService.getWatchlistFromUser(user_id);
-        System.out.println("WATCHLIST" + userWatchlist);
         if(userWatchlist.isEmpty())
         {
             return null;
         }
         HashMap<String, Integer> genreCount = new HashMap<>();
-        System.out.println("COUNT GENRES BEGIN");
         for (Movie movie : userWatchlist)
         {
             String genre = movie.getGenre();
@@ -75,26 +76,39 @@ public class MovieServiceImpl implements MovieService
                 genreCount.put(genre, 1);
             }
         }
-        System.out.println("COUNT GENRES END: " + genreCount);
-        String mostPopularGenre = Collections.max(genreCount.keySet());
-        System.out.println("hes behind me isnt he....");
+        
+        Map<String, Integer> newGenreCount = genreCount.entrySet().stream()
+                .filter(entry -> entry.getKey() != null)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        String mostPopularGenre = Collections.max(newGenreCount.keySet());
+
         if(mostPopularGenre == null)
         {
             return null;
         }
+
         Random r = new Random();
         List<Movie> genreMovies = this.movieJPAService.getMoviesByGenre(mostPopularGenre.toUpperCase());
-        List<Movie> recommendationList = new ArrayList<Movie>();
-        for(int i = 0; i < RETURN_AMOUNT; i++)
-        {
-            if (i > genreMovies.size())
-            {
-                break;
-            }
-            Movie movie = genreMovies.get(r.nextInt(genreMovies.size()));
-            recommendationList.add(i, movie);
+        List<Movie> recommendationList = new ArrayList<>();
+        Set<Integer> selectedIndices = new HashSet<>();
+        int limiter = 0;
+
+        for (int i = 0; i < RETURN_AMOUNT; i++) {
+            int random;
+            do {
+                limiter++;
+                random = r.nextInt(genreMovies.size());
+                if(limiter > 50)
+                {
+                    return recommendationList;
+                }
+            } while (selectedIndices.contains(random));
+
+            selectedIndices.add(random);
+            Movie movie = genreMovies.get(random);
+            recommendationList.add(movie);
         }
-        System.out.println("d");
         return recommendationList;
     }
 
