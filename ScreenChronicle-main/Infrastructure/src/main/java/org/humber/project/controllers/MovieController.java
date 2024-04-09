@@ -47,13 +47,16 @@ public class MovieController {
                            @RequestParam("date") String date,
                            @RequestParam("length") Integer length,
                            @RequestParam("director") String director,
-                           @RequestParam("description") String description) {
+                           @RequestParam("description") String description,
+                           @RequestParam("genre") String genre) {
         Movie movie = new Movie();
         movie.setTitle(title);
         movie.setDate(date);
         movie.setLength(length);
         movie.setDirector(director);
         movie.setDescription(description);
+        movie.setGenre(genre);
+        
 
         Movie createdMovie = movieService.addMovie(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMovie);

@@ -38,7 +38,8 @@ public class SecurityConfig {
                         .requestMatchers("/dashboard").hasRole("USER")
                         .requestMatchers("/style/*", "/script/*").permitAll()
                         .requestMatchers("/error/**").permitAll()
-                        .requestMatchers("/recommended").hasRoles("USER")
+                        .requestMatchers("/recommended").hasRole("USER")
+                        .requestMatchers("/search").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
